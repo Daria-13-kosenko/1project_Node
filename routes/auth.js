@@ -2,10 +2,9 @@ import { Router } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-import express from 'express'
-import { getDb } from '../db/index.js'
+import { getDB } from '../db/index.js'
 
-const router = express.Router()
+const router = Router()
 
 dotenv.config()
 
@@ -19,7 +18,7 @@ router.post('/register', async (req, res) => {
       })
     }
 
-    const db = getDb()
+    const db = getDB()
     const usersCollection = db.collection('users')
 
     const existingUser = await usersCollection.findOne({ username })

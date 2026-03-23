@@ -1,8 +1,8 @@
-import express from 'express'
+import { Router } from 'express'
 import { getDB } from '../db/index.js'
 import authMiddleware from '../middlewares/authMiddleware.js'
 
-const router = express.Router()
+const router = Router()
 
 router.get('/', async (req, res) => {
   try {
