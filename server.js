@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import { connectDB } from './db/index.js'
 import authRouter from './routes/auth.js'
+import postRouter from './routes/posts.js'
 
 dotenv.config()
 const app = express()
@@ -20,4 +21,5 @@ connectDB()
     console.error('Failed to start server', error)
   })
 
-app.use('/', authRouter)
+app.use('/auth', authRouter)
+app.use('/posts', postRouter)

@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
     const result = await usersCollection.insertOne(newUser)
     res.status(201).json({
       message: 'User registred successfully',
-      userId: result.inserId,
+      userId: result.insertedId,
     })
   } catch (error) {
     res.status(500).json({
@@ -60,7 +60,7 @@ router.post('/login', async (req, res) => {
       })
     }
 
-    const db = getDb()
+    const db = getDB()
     const usersCollection = db.collection('users')
 
     const user = await usersCollection.findOne({ username })
@@ -70,6 +70,8 @@ router.post('/login', async (req, res) => {
         message: 'User not found',
       })
     }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
     if (!isPasswordCorrect) {
       return res.status(400).json({
