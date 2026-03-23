@@ -78,8 +78,23 @@ router.post('/login', async (req, res) => {
       })
     }
 
-    const token
-  } catch (error) {}
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        username: user.username,
+      },
+      process.env.JWT_SECRET,
+    )
+    res.json({
+      message: 'Login successfully',
+      token,
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      error: error.message,
+    })
+  }
 })
 
 export default router
